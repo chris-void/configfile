@@ -18,15 +18,23 @@ nmap \w :w!
 nmap \f :find
 nmap gx <Plug>NetrwBrowseX
 map <F12> gg=G
-nnoremap <F2> :g/^\s*$/d 
+nnoremap <F2> :g/^\s*$/d
+ 
 nnoremap <C-F2> :vert diffsplit 
-map <M-F2> :tabnew  
-"#map <F3> :tabnew .  
+map <M-F2> :tabnew
+  
+"#map <F3> :tabnew .
+  
 
 " 设置ctrlp.vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
+execute pathogen#infect()
+
 " 设置NerdTree
+autocmd vimenter * NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <F3> :NERDTreeMirror<CR>
 map <F3> :NERDTreeToggle<CR>
 
@@ -48,7 +56,8 @@ inoremap ( ()i
 inoremap ) =ClosePair(')')
 inoremap [ []i
 inoremap ] =ClosePair(']')
-inoremap { {}O
+inoremap { {
+}O
 inoremap } =ClosePair('}')
 let &cpo=s:cpo_save
 unlet s:cpo_save
