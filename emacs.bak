@@ -1,0 +1,39 @@
+(load-file "~/.emacs.d/emacs-for-python/epy-init.el")
+
+(add-to-list 'load-path "~/.emacs.d/plugins/")
+
+(add-to-list 'load-path "path/to/emacs-for-python/") ;; tell where to load the various files
+(require 'epy-setup)      ;; It will setup other loads, it is required!
+(require 'epy-python)     ;; If you want the python facilities [optional/<Right>
+(require 'epy-completion) ;; If you want the autocompletion settings [optional/<Right>
+(require 'epy-editing)    ;; For configurations related to editing [optional/<Right>
+(require 'epy-bindings)  ;; For my suggested keybindings [optional/<Right>
+(require 'epy-nose)       ;; For nose integration
+
+(epy-setup-checker "pyflakes %f")
+;(epy-django-snippets)
+(epy-setup-ipython)
+
+(global-hl-line-mode t) ;; To enable
+(set-face-background 'hl-line "black") ;; change with the color that you like
+                                                                                 ;; for
+                                                                                 ;; a
+                                                                                 ;; list
+                                                                                 ;; of
+                                                                                 ;; colors:
+                                                                                 ;; http://raebear.net/comp/emacscolors.html)
+
+
+(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+
+(require 'highlight-indentation)
+(add-hook 'python-mode-hook 'highlight-indentation)
+
+(setq skeleton-pair nil)
+
+;(setq epy-enable-ropemacs nil)
+
+
+
