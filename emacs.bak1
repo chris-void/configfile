@@ -1,0 +1,102 @@
+;;---------------------------------------------------------- 
+;; ---- BEGIN Python ---- 
+;;---------------------------------------------------------- 
+
+;; load python.el 
+(require 'python) 
+
+;; use ipython 
+(setq python-command "ipython") 
+(setq 
+python-shell-interpreter "ipython" 
+python-shell-interpreter-args "" 
+python-shell-prompt-regexp "In \\[[0-9]+\\]: " 
+python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: " 
+python-shell-completion-setup-code 
+"from IPython.core.completerlib import module_completion" 
+python-shell-completion-string-code 
+"';'.join(__IP.complete('''%s'''p))\n" 
+python-shell-completion-module-string-code "") 
+
+;; load indentation guide by default 
+(add-hook 'python-mode-hook 
+'(lambda () 
+(highlight-indentation-mode t) 
+)) 
+
+;; bind RET to py-newline-and-indent 
+(add-hook 'python-mode-hook '(lambda () 
+(define-key python-mode-map "\C-m" 'newline-and-indent))) 
+
+;; display lambda for python 
+(add-hook 'python-mode-hook #'lambda-mode 1) 
+
+;; pylookup 
+;; Usage: 
+;; C-c h term 
+;; 
+;; add pylookup to your loadpath, ex) ~/.emacs.d/pylookup 
+(setq pylookup-dir "~/.emacs.d/dotEmacs/pylookup") 
+(add-to-list 'load-path pylookup-dir) 
+
+;; load pylookup when compile time 
+(eval-when-compile (require 'pylookup)) 
+
+;; set executable file and db file 
+(setq pylookup-program (concat pylookup-dir "/pylookup.py")) 
+(setq pylookup-db-file (concat pylookup-dir "/pylookup.db")) 
+
+;; to speedup, just load it on demand 
+(autoload 'pylookup-lookup "pylookup" 
+"Lookup SEARCH-TERM in the Python HTML indexes." t) 
+
+(autoload 'pylookup-update "pylookup" 
+"Run pylookup-update and create the database at `pylookup-db-file'." t) 
+(global-set-key "\C-ch" 'pylookup-lookup) 
+
+;; flymake for python, need create a script named pycheckers 
+(add-hook 'find-file-hook 'flymake-find-file-hook) 
+(when (load "flymake" t) 
+(defun flymake-pyflakes-init () 
+(let* ((temp-file (flymake-init-create-temp-buffer-copy 
+'flymake-create-temp-inplace)) 
+(local-file (file-relative-name 
+temp-file 
+(file-name-directory buffer-file-name)))) 
+(list "pycheckers" (list local-file)))) 
+(add-to-list 'flymake-allowed-file-name-masks 
+'("\\.py\\'" flymake-pyflakes-init))) 
+
+;; highlight breakpoint(s) 
+(defun annotate-pdb () 
+(interactive) 
+(highlight-lines-matching-regexp "import pdb") 
+(highlight-lines-matching-regexp "pdb.set_trace()")) 
+
+(add-hook 'python-mode-hook 'annotate-pdb) 
+
+;; add a breakpoint with C-c C-t 
+(defun python-add-breakpoint () 
+(interactive) 
+(newline-and-indent) 
+(insert "import ipdb; ipdb.set_trace()") 
+(highlight-lines-matching-regexp "^[ ]*import ipdb; ipdb.set_trace()")) 
+
+(define-key python-mode-map (kbd "C-c C-t") 'python-add-breakpoint) 
+
+;; add a log print statement with C-c C-d 
+(defun python-add-log-print () 
+(interactive) 
+(newline-and-indent) 
+(insert "if DEBUG: print '----- wenshan log -----'") 
+(highlight-lines-matching-regexp "^[ ]*if DEBUG: print '----- wenshan log -----")) 
+
+(define-key python-mode-map (kbd "C-c C-d") 'python-add-log-print) 
+
+;; jedi for auto-completion 
+(add-hook 'python-mode-hook 'jedi:setup) 
+(setq jedi:setup-keys t) 
+
+;;---------------------------------------------------------- 
+;; ---- End Python ---- 
+;;---------------------------------------------------------- 
