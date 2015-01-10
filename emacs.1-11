@@ -1,0 +1,4 @@
+(global-linum-mode t)
+(setq linum-format "%2d ")
+(fset 'yes-or-no-p 'y-or-n-p)
+
