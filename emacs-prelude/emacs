@@ -1,0 +1,26 @@
+(global-linum-mode t)
+(setq linum-format "%2d ")
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(global-set-key (kbd "C-x o") 'switch-window)
+
+(electric-pair-mode 1)
+(defvar markdown-electric-pairs '((?* . ?*)) "Electric pairs for markdown-mode.")
+(defun markdown-add-electric-pairs ()
+    (setq-local electric-pair-pairs (append electric-pair-pairs markdown-electric-pairs))
+    (setq-local electric-pair-text-pairs electric-pair-pairs))
+
+(add-hook 'markdown-mode-hook 'markdown-add-electric-pairs)
+
+(add-hook 'python-mode-hook
+               (lambda ()
+                (define-key python-mode-map "\"" 'electric-pair)
+                (define-key python-mode-map "\'" 'electric-pair)
+                (define-key python-mode-map "(" 'electric-pair)
+                (define-key python-mode-map "[" 'electric-pair)
+                (define-key python-mode-map "{" 'electric-pair)))
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(load-theme 'atom-dark t)
+
+(setq auto-save-default nil)
