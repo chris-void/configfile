@@ -1,17 +1,26 @@
-(global-linum-mode t)
+(global-linum-mode t)                                                                                                                                     
 (setq linum-format "%2d ")
 (fset 'yes-or-no-p 'y-or-n-p)
+  
+;;(global-set-key (kbd "C-x o") 'switch-window)
 
-(global-set-key (kbd "C-x o") 'switch-window)
-
-(electric-pair-mode 1)
-(defvar markdown-electric-pairs '((?* . ?*)) "Electric pairs for markdown-mode.")
-(defun markdown-add-electric-pairs ()
-    (setq-local electric-pair-pairs (append electric-pair-pairs markdown-electric-pairs))
-    (setq-local electric-pair-text-pairs electric-pair-pairs))
-
-(add-hook 'markdown-mode-hook 'markdown-add-electric-pairs)
-
+;(electric-pair-mode 1)
+;(defvar markdown-electric-pairs '((?* . ?*)) "Electric pairs for markdown-mode.")
+;(defun markdown-add-electric-pairs ()
+;    (setq-local electric-pair-pairs (append electric-pair-pairs markdown-electric-pairs))
+;    (setq-local electric-pair-text-pairs electric-pair-pairs))
+;(add-hook 'markdown-mode-hook 'markdown-add-electric-pairs)
+  
+  
+  
+(defun electric-pair ()
+     "If at end of line, insert character pair without surrounding spaces.
+     Otherwise, just insert the typed character."
+     (interactive)
+     (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
+  
+(electric-pair-mode 1)  
+ 
 (add-hook 'python-mode-hook
                (lambda ()
                 (define-key python-mode-map "\"" 'electric-pair)
@@ -19,15 +28,19 @@
                 (define-key python-mode-map "(" 'electric-pair)
                 (define-key python-mode-map "[" 'electric-pair)
                 (define-key python-mode-map "{" 'electric-pair)))
-
+ 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'atom-dark t)
 
+;; use shift + up/down to move window
+(windmove-default-keybindings)
+(setq windmove-wrap-around t)
+ 
 (setq auto-save-default nil)
-
+ 
 (prefer-coding-system 'utf-8)
-
-
+ 
+ 
 ;; chinese
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 ;; unicad.el 让 Emacs 自动识别文件编码 
@@ -36,10 +49,9 @@
 ;(require 'unicad) 
 ;(setq file-name-coding-system 'utf-8) 
 ;(setq-default coding-system-history '("utf-8" "gb2312" "latin-2" "latin-1" "gbk")) 
-
+ 
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
-
