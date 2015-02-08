@@ -9,7 +9,7 @@
 #
 #        Including the services:
 #
-#	
+#
 #
 ######################################
 
@@ -41,6 +41,7 @@
 (global-font-lock-mode t)
 (show-paren-mode t)
 
+;; scroll smoothly
 (setq scroll-margin 3
  scroll-conservatively 10000)
 (setq auto-save-default nil)
@@ -72,11 +73,13 @@
                 (define-key python-mode-map "{" 'electric-pair)))
 
 ;; use c mode settings
-(add-hook 'c-mode-hook
-           '(lambda ()
-			                (c-set-style "Stroustrup")
-							;(c-toggle-auto-state)
-							(c-toggle-auto-hungry-state 1)))
+(c-toggle-auto-newline)
+(add-hook 'c-mode-common-hook (lambda () (c-toggle-auto-hungry-state 1)))
+;(add-hook 'c-mode-hook
+;           '(lambda ()
+;                           (c-set-style "Stroustrup")
+;                           (c-toggle-auto-hungry-state 1)))
+
 
 ;; use the atom dark theme which is my favourite
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
@@ -93,10 +96,29 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq c-basic-offset 4)
+(require 'cc-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;  You can add your own settings below !
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; for yasnippet
+(add-to-list 'load-path "~/.emacs.d/personal/preload/yasnippet")
+(require 'yasnippet)
+;(yas-global-mode 1)
+
+;; NeoTree
+(add-to-list 'load-path "~/.emacs.d/personal/preload/neotree/")
+(require 'neotree)
+(global-set-key [f3] 'neotree-toggle)
+
+
+
+
+
+
