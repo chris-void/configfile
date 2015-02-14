@@ -1,35 +1,33 @@
-##
-## Filename: emacs
-##
-#  This is the personal setting script of chrisvo1d for Emacs. Anyone is welcome to fork and try this set of emacs !
-##
-#####################################
-#
-#   Basically came from: Emacs-Prelude
-#
-#        Including the services:
-#
-#
-#
-######################################
+;;
+;; Filename: emacs
+;;
+;  This is the personal setting script of chrisvo1d for Emacs. Anyone is welcome to fork and try this set of emacs !
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;
+;   Basically came from:
+;        Emacs-Prelude
+;
+;   Including the services:
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-## Written by chrisvo1d
-## Version: 1.0
-
-# First, you should have experience of using Emacs.
-# You should use the pkg control to install Emacs(like apt-get install emacs or brew install emacs, don't worry it is covered below)
-# Then follow the guide to put the emacs.d folder and emacs to the right place
-##
-##
-##
-
-
+;; Written by chrisvo1d
+;; Version: 1.0
+; First, you should have experience of using Emacs.
+; You should use the pkg control to install Emacs(like apt-get install emacs or brew install emacs, don't worry it is covered below)
+; Then follow the guide to put the emacs.d folder and emacs to the right place
+;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;          basic seettings
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(add-to-list 'load-path "~/.emacs.d/personal/preload/")
+
 (global-linum-mode t)
 (setq linum-format "%2d ")
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -72,8 +70,12 @@
                 (define-key python-mode-map "[" 'electric-pair)
                 (define-key python-mode-map "{" 'electric-pair)))
 
+;; use google style C
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
 ;; use c mode settings
-(c-toggle-auto-newline)
+;(c-toggle-auto-newline)
 (add-hook 'c-mode-common-hook (lambda () (c-toggle-auto-hungry-state 1)))
 ;(add-hook 'c-mode-hook
 ;           '(lambda ()
@@ -83,11 +85,13 @@
 
 ;; use the atom dark theme which is my favourite
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(load-theme 'atom-dark t)
+;(load-theme 'atom-dark t)
+(load-theme 'tango-dark t)
 
-;; use shift + up/down to move window
-(windmove-default-keybindings)
-(setq windmove-wrap-around t)
+;; use Wind Move (see more on EmacsWiki)
+(when (fboundp 'windmove-default-keybindings)
+   (windmove-default-keybindings))
+
 
 ;; use utf-8 coding to help with chinese
 (setq locale-coding-system 'utf-8)
@@ -96,8 +100,8 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
+(setq default-tab-width 4)
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
 (setq c-basic-offset 4)
 (require 'cc-mode)
 
@@ -116,9 +120,3 @@
 (add-to-list 'load-path "~/.emacs.d/personal/preload/neotree/")
 (require 'neotree)
 (global-set-key [f3] 'neotree-toggle)
-
-
-
-
-
-
