@@ -120,3 +120,6 @@
 (add-to-list 'load-path "~/.emacs.d/personal/preload/neotree/")
 (require 'neotree)
 (global-set-key [f3] 'neotree-toggle)
+
+;; For Terminal Env
+(global-set-key [(control h)] 'delete-backward-char)
