@@ -55,8 +55,8 @@ if version >= 703 " Vim 7.x specific colors
     hi ColorColumn  guifg=#e8ecf0 guibg=#283848
 endif
 
-" syntax highlighting groups
-hi Comment    guifg=#8090a0   gui=none
+" syntax highlighting groups  8090a0 7c7c7c
+hi Comment    guifg=#7c7c7c   gui=none
 hi Constant   guifg=#ff6070   gui=none
 hi Identifier guifg=#70d080   gui=none
 hi Statement  guifg=#6699D0   gui=none

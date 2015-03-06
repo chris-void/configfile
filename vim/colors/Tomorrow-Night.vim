@@ -3,12 +3,12 @@
 "
 " Hex colour conversion functions borrowed from the theme "Desert256""
 
-" Default GUI Colours
+" Default GUI Colours comment 969896
 let s:foreground = "c5c8c6"
 let s:background = "1d1f21"
 let s:selection = "373b41"
 let s:line = "282a2e"
-let s:comment = "969896"
+let s:comment = "2ce126"   
 let s:red = "cc6666"
 let s:orange = "de935f"
 let s:yellow = "f0c674"
