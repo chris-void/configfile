@@ -9,7 +9,7 @@ All you need to do is to `git clone` the repository or download the zip, then yo
 
 ## C-Emacs
 
-Suggestion:
+**Suggestion:**    
 add below to ~/.bashrc
 > `alias ema='emacs --daemon' `
 > `alias e='emacsclient -nw' `
