@@ -11,8 +11,8 @@ All you need to do is to `git clone` the repository or download the zip, then yo
 
 **Suggestion:**    
 add below to ~/.bashrc
-> `alias ema='emacs --daemon' `
-> `alias e='emacsclient -nw' `
+ `alias ema='emacs --daemon' `      
+ `alias e='emacsclient -nw' `
 
 ## C-Vim
 
